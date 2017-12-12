@@ -7,6 +7,7 @@ import java.util.Date;
 
 import tasksharper.tasksharperclient.Models.Enums.EventStatus;
 import tasksharper.tasksharperclient.Models.Enums.EventType;
+import tasksharper.tasksharperclient.Models.Enums.ModificationState;
 import tasksharper.tasksharperclient.Models.Enums.UpdateState;
 
 /**
@@ -16,7 +17,8 @@ import tasksharper.tasksharperclient.Models.Enums.UpdateState;
 public class EventDbModel extends SugarRecord {
 
     @Unique
-    public String id;
+    public long id;
+    public String recordId;
     public String title;
     public String description;
 
@@ -29,6 +31,7 @@ public class EventDbModel extends SugarRecord {
     public boolean markedAsDone;
 
     public UpdateState state;
+    public ModificationState modificationState;
     public Date lastUpdated;
 
     public EventDbModel(){

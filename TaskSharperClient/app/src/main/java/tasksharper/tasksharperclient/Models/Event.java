@@ -12,6 +12,7 @@ import tasksharper.tasksharperclient.Models.Enums.EventType;
 public class Event {
 
     public String id;
+    public String recordId;
     public String title;
     public String description;
 

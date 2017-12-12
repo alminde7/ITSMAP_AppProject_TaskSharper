@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TaskSharper</string>
+    <string name="navigation_drawer_open">Åben navigation skuffe</string>
+    <string name="navigation_drawer_close">Luk navigation skuffe</string>
+    <string name="action_settings">Indstillinger</string>
+    <string name="event_type_task">Opgave</string>
+    <string name="event_type_appointment">Aftale</string>
+    <string name="event_type_none">Ingen</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="new_event">Ny Begivenhed</string>
+    <string name="edit_event">Rediger %1$s</string>
+    <string name="create">Opret</string>
+    <string name="edit">Rediger</string>
+    <string name="details">Detaljer</string>
+    <string name="confirm">Bekræft</string>
+    <string name="are_you_sure_delete">Er du sikker på du vil slette %1$s?</string>
+    <string name="calendar">Kalender</string>
+    <string name="title">Titel</string>
+    <string name="description">Beskrivelse</string>
+    <string name="start">Start</string>
+    <string name="end">Slut</string>
+    <string name="date">Dato</string>
+    <string name="tasks">Opgaver</string>
+    <string name="appointments">Aftaler</string>
+    <string name="from_date">Fra dato</string>
+    <string name="to_date">Til dato</string>
+    <string name="action_synchronize">Synkroniser med Google</string>
+    <string name="error_no_internet">Ingen netværks forbindelse tilgængelig</string>
+    <string name="error_google_play_services_required">Denne app kræver Google Play Services. Installer Google Play Services på din enhed og genstart denne app.</string>
+</resources>

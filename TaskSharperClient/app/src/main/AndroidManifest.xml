@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="tasksharper.tasksharperclient">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
     <application
         android:name="com.orm.SugarApp"
         android:allowBackup="true"
@@ -12,17 +16,28 @@
         android:theme="@style/AppTheme">
 
         <!-- http://satyan.github.io/sugar/getting-started.html -->
-        <meta-data android:name="DATABASE" android:value="tasksharper.events.db" />
-        <meta-data android:name="VERSION" android:value="1" />
-        <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.tasksharper" />
+        <meta-data
+            android:name="DATABASE"
+            android:value="tasksharper.events.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="8" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="tasksharper.tasksharperclient" />
+
+        <service
+            android:name=".Service.CalendarService"
+            android:enabled="true" />
+
         <activity
-            android:name=".CalendarActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

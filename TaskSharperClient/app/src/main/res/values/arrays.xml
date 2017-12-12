@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="EventTypeList">
+        <item>@string/event_type_task</item>
+        <item>@string/event_type_appointment</item>
+    </string-array>
+</resources>

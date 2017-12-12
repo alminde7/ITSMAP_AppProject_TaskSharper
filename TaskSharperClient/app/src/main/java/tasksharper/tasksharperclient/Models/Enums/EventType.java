@@ -6,6 +6,6 @@ package tasksharper.tasksharperclient.Models.Enums;
 
 public enum EventType {
     None,
-    Apointment,
+    Appointment,
     Task
 }

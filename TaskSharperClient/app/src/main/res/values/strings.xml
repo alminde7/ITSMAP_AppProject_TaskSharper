@@ -1,8 +1,37 @@
 <resources>
-    <string name="app_name">TaskSharperClient</string>
-
+    <string name="app_name">TaskSharper</string>
+    <string-array name="views_array">
+        <item>@string/calendar</item>
+        <item>@string/tasks</item>
+        <item>@string/appointments</item>
+    </string-array>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_synchronize">Synchronize with Google</string>
+    <string name="event_type_task">Task</string>
+    <string name="event_type_appointment">Appointment</string>
+    <string name="event_type_none">None</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="new_event">New Event</string>
+    <string name="edit_event">Edit %1$s</string>
+    <string name="create">Create</string>
+    <string name="edit">Edit</string>
+    <string name="details">Details</string>
+    <string name="confirm">Confirm</string>
+    <string name="are_you_sure_delete">Are you sure you want to delete %1$s?</string>
+    <string name="calendar">Calendar</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="date">Date</string>
+    <string name="tasks">Tasks</string>
+    <string name="appointments">Appointments</string>
+    <string name="from_date">From date</string>
+    <string name="to_date">To date</string>
+    <string name="error_no_internet">No network connection available</string>
+    <string name="error_google_play_services_required">This app requires Google Play Services. Please install Google Play Services on your device and relaunch this app.</string>
 </resources>

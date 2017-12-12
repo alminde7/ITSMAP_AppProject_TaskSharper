@@ -1,7 +1,10 @@
 package tasksharper.tasksharperclient.Utils;
 
+import com.orm.SugarRecord;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import tasksharper.tasksharperclient.Models.Event;
 import tasksharper.tasksharperclient.Models.EventDbModel;
@@ -15,7 +18,8 @@ public class EventParser {
     public static Event Parse(EventDbModel eventDbModel){
         Event event = new Event();
 
-        event.id = eventDbModel.id;
+        event.id = Long.toString(eventDbModel.id);
+        event.recordId = eventDbModel.recordId;
         event.title = eventDbModel.title;
         event.description = eventDbModel.description;
         event.start = eventDbModel.start;
@@ -30,7 +34,17 @@ public class EventParser {
     public static EventDbModel Parse(Event event){
         EventDbModel eventDbModel = new EventDbModel();
 
-        eventDbModel.id = event.id;
+        try {
+            eventDbModel.id = Long.parseLong(event.id, 10) ;
+        } catch(NumberFormatException ex){
+            // id is probably "null" (as a string...) in which case this can be ignored because the event is about to be created
+        }
+
+        if (event.recordId == null) {
+            eventDbModel.recordId = UUID.randomUUID().toString();
+        } else {
+            eventDbModel.recordId = event.recordId;
+        }
         eventDbModel.title = event.title;
         eventDbModel.description = event.description;
         eventDbModel.start = event.start;
