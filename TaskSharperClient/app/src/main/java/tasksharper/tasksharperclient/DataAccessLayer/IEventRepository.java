@@ -14,6 +14,7 @@ import tasksharper.tasksharperclient.Models.Event;
  */
 
 public interface IEventRepository {
+    void instantiateGoogleCalendar();
     void SynchronizeEvents();
     void add(Event event);
     void update(Event event);

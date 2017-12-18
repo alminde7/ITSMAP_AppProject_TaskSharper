@@ -59,6 +59,14 @@ public class CalendarService extends Service {
         mCredential = credential;
         mEventRepository = new EventRepository(mCredential);
     }
+    public void instantiateGoogleCalendar(Context context){
+        if (mCredential != null && checkForInternetConnection()) {
+            mEventRepository.instantiateGoogleCalendar();
+        } else{
+            Toast.makeText(context, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
+            EventBus.getDefault().post(new NoConnectionEvent());
+        }
+    }
 
     // Methods publicly available for the binder :)
     public void synchronizeEventsWithGoogleCalendar(Context context) {

@@ -2,6 +2,7 @@ package tasksharper.tasksharperclient.DataAccessLayer;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAuthIOException;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 
 import com.google.api.client.http.HttpTransport;
@@ -14,6 +15,7 @@ import com.google.api.services.calendar.model.*;
 import com.google.api.services.calendar.model.Event;
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -29,6 +31,7 @@ import tasksharper.tasksharperclient.Models.AuthErrorEvent;
 import tasksharper.tasksharperclient.Models.Enums.EventType;
 import tasksharper.tasksharperclient.Models.Enums.UpdateState;
 import tasksharper.tasksharperclient.Models.NewDataEvent;
+import tasksharper.tasksharperclient.Models.NoConnectionEvent;
 
 
 /**
@@ -47,6 +50,29 @@ public class EventRepository implements IEventRepository  {
                 transport, jsonFactory, credential)
                 .setApplicationName("TaskSharper")
                 .build();
+    }
+
+    @Override
+    public void instantiateGoogleCalendar() {
+        AsyncTask<Object, Object, Object> task = new AsyncTask<Object, Object, Object>() {
+            @Override
+            protected Object doInBackground(Object... objects) {
+                try {
+                    Events events = mService.events().list("primary")
+                            .setOrderBy("startTime")
+                            .setSingleEvents(true)
+                            .setShowDeleted(true)
+                            .setMaxResults(1)
+                            .execute();
+                } catch (IOException e) {
+                    EventBus.getDefault().post(new AuthErrorEvent((GoogleAuthIOException) e));
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };
+
+        task.execute();
     }
 
     @Override
@@ -114,12 +140,7 @@ public class EventRepository implements IEventRepository  {
                     }
                     return items;
                 } catch (IOException e) {
-                    try {
-                        EventBus.getDefault().post(new AuthErrorEvent((UserRecoverableAuthIOException)e));
-                    } catch(Exception ex){
-                        ex.printStackTrace();
-                    }
-
+                    EventBus.getDefault().post(new AuthErrorEvent((GoogleAuthIOException)e));
                     e.printStackTrace();
                 }
                 return null;
@@ -163,6 +184,7 @@ public class EventRepository implements IEventRepository  {
                     }
                     return insertedEvent;
                 } catch (IOException e) {
+                    EventBus.getDefault().post(new AuthErrorEvent((GoogleAuthIOException)e));
                     e.printStackTrace();
                 }
                 return null;
@@ -204,6 +226,7 @@ public class EventRepository implements IEventRepository  {
                     }
                     return updatedEvent;
                 } catch (IOException e) {
+                    EventBus.getDefault().post(new AuthErrorEvent((GoogleAuthIOException)e));
                     e.printStackTrace();
                 }
                 return null;
@@ -229,6 +252,7 @@ public class EventRepository implements IEventRepository  {
                     mService.events().delete("primary", recordId).execute();
                     cache.remove(id);
                 } catch (IOException e) {
+                    EventBus.getDefault().post(new AuthErrorEvent((GoogleAuthIOException)e));
                     e.printStackTrace();
                 }
 
@@ -256,6 +280,12 @@ public class EventRepository implements IEventRepository  {
             markedAsDone = properties.getShared().get("MarkedAsDone");
         } else {
             type = "None";
+            markedAsDone = "False";
+        }
+        if (type == null){
+            type = "None";
+        }
+        if (markedAsDone == null) {
             markedAsDone = "False";
         }
 

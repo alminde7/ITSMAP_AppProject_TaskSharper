@@ -47,6 +47,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.calendar.CalendarScopes;
 
@@ -273,7 +274,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     @Subscribe()
     public void onAuthErrorEvent(AuthErrorEvent event){
-        startActivityForResult(event.exception.getIntent(), REQUEST_AUTHORIZATION);
+        startActivityForResult(((UserRecoverableAuthIOException)event.exception).getIntent(), REQUEST_AUTHORIZATION);
     }
 
     private void setupServiceConnection(){
@@ -307,6 +308,8 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         } else if (! isDeviceOnline()) {
             Toast.makeText(this, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
             EventBus.getDefault().post(new NoConnectionEvent());
+        } else if (isDeviceOnline()) {
+            serviceBinder.instantiateGoogleCalendar(getApplicationContext());
         }
     }
 
