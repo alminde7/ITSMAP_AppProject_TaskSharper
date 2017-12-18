@@ -114,7 +114,12 @@ public class EventRepository implements IEventRepository  {
                     }
                     return items;
                 } catch (IOException e) {
-                    EventBus.getDefault().post(new AuthErrorEvent((UserRecoverableAuthIOException)e));
+                    try {
+                        EventBus.getDefault().post(new AuthErrorEvent((UserRecoverableAuthIOException)e));
+                    } catch(Exception ex){
+                        ex.printStackTrace();
+                    }
+
                     e.printStackTrace();
                 }
                 return null;
