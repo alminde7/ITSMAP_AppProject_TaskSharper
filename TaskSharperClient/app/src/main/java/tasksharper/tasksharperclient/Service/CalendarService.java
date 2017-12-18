@@ -12,19 +12,11 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.UserRecoverableAuthException;
-import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.orm.SchemaGenerator;
 import com.orm.SugarContext;
-import com.orm.SugarDb;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -32,11 +24,9 @@ import tasksharper.tasksharperclient.Cache.EventCache;
 import tasksharper.tasksharperclient.Cache.IEventCache;
 import tasksharper.tasksharperclient.DataAccessLayer.EventRepository;
 import tasksharper.tasksharperclient.DataAccessLayer.IEventRepository;
-import tasksharper.tasksharperclient.Models.Enums.EventType;
 import tasksharper.tasksharperclient.Models.Enums.UpdateState;
 import tasksharper.tasksharperclient.Models.Event;
-import tasksharper.tasksharperclient.Models.EventDbModel;
-import tasksharper.tasksharperclient.Models.NoInternetEvent;
+import tasksharper.tasksharperclient.Models.NoConnectionEvent;
 import tasksharper.tasksharperclient.Notification.EventNotification;
 import tasksharper.tasksharperclient.Notification.IEventNotification;
 import tasksharper.tasksharperclient.R;
@@ -76,7 +66,7 @@ public class CalendarService extends Service {
             mEventRepository.SynchronizeEvents();
         } else{
             Toast.makeText(context, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
-            EventBus.getDefault().post(new NoInternetEvent());
+            EventBus.getDefault().post(new NoConnectionEvent());
         }
     }
 

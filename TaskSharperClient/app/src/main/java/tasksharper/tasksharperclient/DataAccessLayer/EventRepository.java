@@ -13,7 +13,6 @@ import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.*;
 import com.google.api.services.calendar.model.Event;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import org.greenrobot.eventbus.EventBus;
@@ -29,7 +28,7 @@ import tasksharper.tasksharperclient.Cache.IEventCache;
 import tasksharper.tasksharperclient.Models.AuthErrorEvent;
 import tasksharper.tasksharperclient.Models.Enums.EventType;
 import tasksharper.tasksharperclient.Models.Enums.UpdateState;
-import tasksharper.tasksharperclient.Models.MessageEvent;
+import tasksharper.tasksharperclient.Models.NewDataEvent;
 
 
 /**
@@ -123,7 +122,7 @@ public class EventRepository implements IEventRepository  {
 
             @Override
             protected void onPostExecute(Object result){
-                EventBus.getDefault().post(new MessageEvent());
+                EventBus.getDefault().post(new NewDataEvent());
             }
         };
 
@@ -166,7 +165,7 @@ public class EventRepository implements IEventRepository  {
 
             @Override
             protected void onPostExecute(Object result){
-                EventBus.getDefault().post(new MessageEvent());
+                EventBus.getDefault().post(new NewDataEvent());
             }
         };
 
@@ -207,7 +206,7 @@ public class EventRepository implements IEventRepository  {
 
             @Override
             protected void onPostExecute(Object result){
-                EventBus.getDefault().post(new MessageEvent());
+                EventBus.getDefault().post(new NewDataEvent());
             }
         };
 
@@ -233,7 +232,7 @@ public class EventRepository implements IEventRepository  {
 
             @Override
             protected void onPostExecute(Object result){
-                EventBus.getDefault().post(new MessageEvent());
+                EventBus.getDefault().post(new NewDataEvent());
             }
         };
 

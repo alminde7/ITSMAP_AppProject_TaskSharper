@@ -1,7 +1,5 @@
 package tasksharper.tasksharperclient;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +13,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
@@ -24,29 +21,19 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.auth.UserRecoverableAuthException;
-
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.Phaser;
 
-import tasksharper.tasksharperclient.DataAccessLayer.EventRepository;
-import tasksharper.tasksharperclient.DataAccessLayer.IEventRepository;
 import tasksharper.tasksharperclient.Models.AuthErrorEvent;
 import tasksharper.tasksharperclient.Models.Enums.EventType;
 import tasksharper.tasksharperclient.Models.Event;
-import tasksharper.tasksharperclient.Models.MessageEvent;
-import tasksharper.tasksharperclient.Models.NoInternetEvent;
+import tasksharper.tasksharperclient.Models.NewDataEvent;
+import tasksharper.tasksharperclient.Models.NoConnectionEvent;
 import tasksharper.tasksharperclient.Service.CalendarService;
 import tasksharper.tasksharperclient.Utils.EventIcon;
 import tasksharper.tasksharperclient.Utils.Globals;
-
-import static tasksharper.tasksharperclient.MainActivity.REQUEST_AUTHORIZATION;
 
 /**
  * Created by Mads X1 Carbon on 06-12-2017.
@@ -150,7 +137,7 @@ public class CalendarFragment extends Fragment {
     }
 
     @Subscribe()
-    public void onNewDataEvent(MessageEvent event){
+    public void onNewDataEvent(NewDataEvent event){
         updateEventList(serviceBinder.getEventsByDate(selectedDate.getTime()));
         // Stop refresh animation
         eventList.setRefreshing(false);
@@ -162,7 +149,7 @@ public class CalendarFragment extends Fragment {
     }
 
     @Subscribe
-    public void onNoInternetEvent(NoInternetEvent event){
+    public void onNoInternetEvent(NoConnectionEvent event){
         eventList.setRefreshing(false);
     }
 

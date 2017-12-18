@@ -19,7 +19,6 @@ package tasksharper.tasksharperclient;
 import android.Manifest;
 import android.accounts.AccountManager;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +27,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -46,37 +44,23 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
-import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.DateTime;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.calendar.CalendarScopes;
-import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.Events;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
-import tasksharper.tasksharperclient.DataAccessLayer.IEventRepository;
 import tasksharper.tasksharperclient.Models.AuthErrorEvent;
 import tasksharper.tasksharperclient.Models.Enums.EventType;
-import tasksharper.tasksharperclient.Models.MessageEvent;
-import tasksharper.tasksharperclient.Models.NoInternetEvent;
+import tasksharper.tasksharperclient.Models.NoConnectionEvent;
 import tasksharper.tasksharperclient.Service.CalendarService;
 import tasksharper.tasksharperclient.Utils.Globals;
 
@@ -322,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             chooseAccount();
         } else if (! isDeviceOnline()) {
             Toast.makeText(this, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
-            EventBus.getDefault().post(new NoInternetEvent());
+            EventBus.getDefault().post(new NoConnectionEvent());
         }
     }
 

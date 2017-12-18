@@ -10,7 +10,6 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.LogWriter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,7 +21,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -32,8 +30,8 @@ import java.util.List;
 import tasksharper.tasksharperclient.Models.AuthErrorEvent;
 import tasksharper.tasksharperclient.Models.Enums.EventType;
 import tasksharper.tasksharperclient.Models.Event;
-import tasksharper.tasksharperclient.Models.MessageEvent;
-import tasksharper.tasksharperclient.Models.NoInternetEvent;
+import tasksharper.tasksharperclient.Models.NewDataEvent;
+import tasksharper.tasksharperclient.Models.NoConnectionEvent;
 import tasksharper.tasksharperclient.Service.CalendarService;
 import tasksharper.tasksharperclient.Utils.EventIcon;
 import tasksharper.tasksharperclient.Utils.Globals;
@@ -237,7 +235,7 @@ public class EventsFragment extends Fragment {
     }
 
     @Subscribe()
-    public void onNewDataEvent(MessageEvent event){
+    public void onNewDataEvent(NewDataEvent event){
         updateView();
         // Stop refresh animation
         eventList.setRefreshing(false);
@@ -249,7 +247,7 @@ public class EventsFragment extends Fragment {
     }
 
     @Subscribe
-    public void onNoInternetEvent(NoInternetEvent event){
+    public void onNoInternetEvent(NoConnectionEvent event){
         eventList.setRefreshing(false);
     }
 
